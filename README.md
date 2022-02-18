@@ -20,7 +20,7 @@ import "github.com/fitv/go-i18n"
 //go:embed locales/*.yml
 var fs embed.FS
 
-i18n.Init(fs, "locales")
+i18n, err := i18n.New(fs, "locales")
 i18n.SetDefaultLocale("en")
 
 i18n.Trans("hello.world") // World

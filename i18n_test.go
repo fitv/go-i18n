@@ -14,7 +14,11 @@ var fs embed.FS
 func Test(t *testing.T) {
 	assert := assert.New(t)
 
-	i18n.Init(fs, "locales")
+	i18n, err := i18n.New(fs, "locales")
+	if err != nil {
+		t.Fatal(err)
+	}
+
 	i18n.SetDefaultLocale("en")
 	assert.Equal(i18n.Trans("user.name"), "Name")
 	assert.Equal(i18n.Trans("user.age"), "Age")

@@ -10,41 +10,52 @@ import (
 )
 
 var (
-	defaultLocale string
-	emptyTrans    = translator.New(make(map[string]interface{}))
-	transMap      = make(map[string]*translator.Translator)
+	emptyTrans = translator.New(make(map[string]interface{}))
 )
 
+type I18n struct {
+	defaultLocale string
+	transMap      map[string]*translator.Translator
+}
+
 // Init init the translator
-func Init(fs embed.FS, path string) {
-	dirEntries, _ := fs.ReadDir(path)
+func New(fs embed.FS, path string) (*I18n, error) {
+	i18n := &I18n{
+		transMap: make(map[string]*translator.Translator),
+	}
+
+	dirEntries, err := fs.ReadDir(path)
+	if err != nil {
+		return nil, err
+	}
 
 	for _, entry := range dirEntries {
 		m := make(map[string]interface{})
 
 		file, err := fs.ReadFile(fmt.Sprintf("%s/%s", path, entry.Name()))
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 
 		err = yaml.Unmarshal(file, &m)
 		if err != nil {
-			panic(err)
+			return nil, err
 		}
 
 		local := strings.Split(entry.Name(), ".")[0]
-		transMap[local] = translator.New(m)
+		i18n.transMap[local] = translator.New(m)
 	}
+	return i18n, nil
 }
 
 // SetDefaultLocale set the default locale
-func SetDefaultLocale(local string) {
-	defaultLocale = local
+func (i *I18n) SetDefaultLocale(local string) {
+	i.defaultLocale = local
 }
 
 // Locale returns the translator instance by the given locale
-func Locale(locale string) *translator.Translator {
-	trans, ok := transMap[locale]
+func (i *I18n) Locale(locale string) *translator.Translator {
+	trans, ok := i.transMap[locale]
 	if ok {
 		return trans
 	}
@@ -52,6 +63,6 @@ func Locale(locale string) *translator.Translator {
 }
 
 // Trans returns language translation by the given key
-func Trans(key string, args ...interface{}) string {
-	return Locale(defaultLocale).Trans(key, args...)
+func (i *I18n) Trans(key string, args ...interface{}) string {
+	return i.Locale(i.defaultLocale).Trans(key, args...)
 }
