@@ -20,11 +20,12 @@ func Test(t *testing.T) {
 	assert.Equal(i18n.Trans("user.age"), "Age")
 	assert.Equal(i18n.Trans("hello.world"), "World")
 	assert.Equal(i18n.Trans("hello.foo", "bar"), "param bar")
+	assert.Equal(i18n.Locale("zh").Trans("hello.world"), "世界")
 
-	i18n.Init(fs, "locales")
 	i18n.SetDefaultLocale("zh")
 	assert.Equal(i18n.Trans("user.name"), "姓名")
 	assert.Equal(i18n.Trans("user.age"), "年龄")
 	assert.Equal(i18n.Trans("hello.world"), "世界")
 	assert.Equal(i18n.Trans("hello.foo", "bar"), "参数 bar")
+	assert.Equal(i18n.Locale("en").Trans("hello.world"), "World")
 }

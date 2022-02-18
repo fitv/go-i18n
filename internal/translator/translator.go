@@ -39,7 +39,6 @@ func (t *Translator) get(key string) (str string, exists bool) {
 	for i, k := range keys {
 		val, ok := source[k]
 		if !ok {
-
 			return
 		}
 

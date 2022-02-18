@@ -1,1 +1,31 @@
 ## I18n for Go
+
+## Installation
+```
+go get -u github.com/fitv/go-i18n
+```
+
+## Usage
+YAML files
+```
+├── locales
+│   ├── en.yml
+│   ├── zh.yml
+└── main.go
+```
+
+```go
+import "github.com/fitv/go-i18n"
+
+//go:embed locales/*.yml
+var fs embed.FS
+
+i18n.Init(fs, "locales")
+i18n.SetDefaultLocale("en")
+
+i18n.Trans("hello.world") // World
+i18n.Locale("zh").Trans("hello.world") // 世界
+
+// with params
+i18n.Trans("hello.foo", "bar123") // foo bar123
+```
