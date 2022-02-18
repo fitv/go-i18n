@@ -1,0 +1,7 @@
+user:
+  name: 姓名
+  age: 年龄
+
+hello:
+  world: 世界
+  foo: "参数 %s"

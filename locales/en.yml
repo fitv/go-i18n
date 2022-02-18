@@ -1,0 +1,7 @@
+user:
+  name: Name
+  age: Age
+
+hello:
+  world: World
+  foo: "param %s"
