@@ -4,4 +4,4 @@ user:
 
 hello:
   world: World
-  foo: "param %s"
+  foo: param %s

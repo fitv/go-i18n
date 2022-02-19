@@ -30,20 +30,20 @@ func New(fs embed.FS, path string) (*I18n, error) {
 	}
 
 	for _, entry := range dirEntries {
-		m := make(map[string]interface{})
+		lang := make(map[string]interface{})
 
 		file, err := fs.ReadFile(fmt.Sprintf("%s/%s", path, entry.Name()))
 		if err != nil {
 			return nil, err
 		}
 
-		err = yaml.Unmarshal(file, &m)
+		err = yaml.Unmarshal(file, &lang)
 		if err != nil {
 			return nil, err
 		}
 
 		local := strings.Split(entry.Name(), ".")[0]
-		i18n.transMap[local] = translator.New(m)
+		i18n.transMap[local] = translator.New(lang)
 	}
 	return i18n, nil
 }

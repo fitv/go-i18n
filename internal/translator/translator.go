@@ -7,14 +7,14 @@ import (
 	"github.com/spf13/cast"
 )
 
-// Translator is a viper wrapper
+// Translator is a map wrapper
 type Translator struct {
-	m map[string]interface{}
+	lang map[string]interface{}
 }
 
 // NewTranslator creates a new Translator
-func New(m map[string]interface{}) *Translator {
-	return &Translator{m: m}
+func New(lang map[string]interface{}) *Translator {
+	return &Translator{lang: lang}
 }
 
 // Trans returns language translation by the given key
@@ -32,7 +32,7 @@ func (t *Translator) Trans(key string, args ...interface{}) string {
 
 // get returns language translation by the given key
 func (t *Translator) get(key string) (str string, exists bool) {
-	source := t.m
+	source := t.lang
 	keys := strings.Split(key, ".")
 	last := len(keys) - 1
 

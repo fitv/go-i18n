@@ -4,4 +4,4 @@ user:
 
 hello:
   world: 世界
-  foo: "参数 %s"
+  foo: 参数 %s
