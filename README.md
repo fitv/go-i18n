@@ -1,6 +1,6 @@
 ## I18n for Go
 
-## Installation
+## Install
 ```
 go get -u github.com/fitv/go-i18n
 ```
@@ -30,6 +30,6 @@ func main() {
     i18n.Locale("zh").Trans("hello.world") // 世界
 
     // with params
-    i18n.Trans("hello.foo", "bar123") // foo bar123
+    i18n.Trans("hello.foo", "bar") // foo bar
 }
 ```

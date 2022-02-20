@@ -2,23 +2,20 @@ package i18n
 
 import (
 	"embed"
-	"fmt"
 	"strings"
 
 	"github.com/fitv/go-i18n/internal/translator"
 	"gopkg.in/yaml.v3"
 )
 
-var (
-	emptyTrans = translator.New(make(map[string]interface{}))
-)
+var emptyTrans = translator.New(make(map[string]interface{}))
 
 type I18n struct {
 	defaultLocale string
 	transMap      map[string]*translator.Translator
 }
 
-// Init init the translator
+// New returns an I18n instance
 func New(fs embed.FS, path string) (*I18n, error) {
 	i18n := &I18n{
 		transMap: make(map[string]*translator.Translator),
@@ -32,7 +29,7 @@ func New(fs embed.FS, path string) (*I18n, error) {
 	for _, entry := range dirEntries {
 		lang := make(map[string]interface{})
 
-		file, err := fs.ReadFile(fmt.Sprintf("%s/%s", path, entry.Name()))
+		file, err := fs.ReadFile(path + "/" + entry.Name())
 		if err != nil {
 			return nil, err
 		}

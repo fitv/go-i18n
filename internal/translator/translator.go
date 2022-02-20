@@ -3,16 +3,13 @@ package translator
 import (
 	"fmt"
 	"strings"
-
-	"github.com/spf13/cast"
 )
 
-// Translator is a map wrapper
 type Translator struct {
 	lang map[string]interface{}
 }
 
-// NewTranslator creates a new Translator
+// New returns a Translator instance
 func New(lang map[string]interface{}) *Translator {
 	return &Translator{lang: lang}
 }
@@ -30,7 +27,7 @@ func (t *Translator) Trans(key string, args ...interface{}) string {
 	return value
 }
 
-// get returns language translation by the given key
+// get returns language translation from the Translator
 func (t *Translator) get(key string) (str string, exists bool) {
 	source := t.lang
 	keys := strings.Split(key, ".")
@@ -48,8 +45,6 @@ func (t *Translator) get(key string) (str string, exists bool) {
 				return v, true
 			}
 			return
-		case map[interface{}]interface{}:
-			source = cast.ToStringMap(val)
 		case map[string]interface{}:
 			source = v
 		default:

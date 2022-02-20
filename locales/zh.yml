@@ -1,6 +1,6 @@
 user:
   name: 姓名
-  age: 年龄
+  email: 邮箱
 
 hello:
   world: 世界

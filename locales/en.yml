@@ -1,6 +1,6 @@
 user:
   name: Name
-  age: Age
+  email: Email
 
 hello:
   world: World
