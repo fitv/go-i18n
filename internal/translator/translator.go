@@ -20,9 +20,16 @@ func (t *Translator) Trans(key string, args ...interface{}) string {
 	if !ok {
 		return key
 	}
+	if len(args) == 0 {
+		return value
+	}
 
-	if len(args) > 0 {
+	dict, ok := args[0].(map[string]interface{})
+	if !ok {
 		return fmt.Sprintf(value, args...)
+	}
+	for key, val := range dict {
+		value = strings.Replace(value, "{"+key+"}", fmt.Sprintf("%v", val), -1)
 	}
 	return value
 }
