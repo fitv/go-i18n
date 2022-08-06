@@ -1,6 +1,7 @@
 user:
   name: 姓名
   email: 邮箱
+  description: "姓名: {name}, 邮箱: {email}"
 
 hello:
   world: 世界

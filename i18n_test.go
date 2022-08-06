@@ -19,12 +19,15 @@ func TestI18n(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	user := map[string]interface{}{"name": "Jack", "email": "jack@example.com"}
+
 	i18n.SetDefaultLocale("en")
 	assert.Equal(i18n.Trans("user.name"), "Name")
 	assert.Equal(i18n.Trans("user.email"), "Email")
 	assert.Equal(i18n.Trans("hello.world"), "World")
 	assert.Equal(i18n.Trans("hello.foo", "bar"), "param bar")
 	assert.Equal(i18n.Locale("zh").Trans("hello.world"), "世界")
+	assert.Equal(i18n.Trans("user.description", user), "Name: Jack, Email: jack@example.com")
 
 	i18n.SetDefaultLocale("zh")
 	assert.Equal(i18n.Trans("user.name"), "姓名")
@@ -32,4 +35,5 @@ func TestI18n(t *testing.T) {
 	assert.Equal(i18n.Trans("hello.world"), "世界")
 	assert.Equal(i18n.Trans("hello.foo", "bar"), "参数 bar")
 	assert.Equal(i18n.Locale("en").Trans("hello.world"), "World")
+	assert.Equal(i18n.Trans("user.description", user), "姓名: Jack, 邮箱: jack@example.com")
 }
