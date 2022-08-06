@@ -30,7 +30,7 @@ func main() {
     i18n.Locale("zh").Trans("hello.world") // 世界
 
     // with params
-	user := map[string]interface{}{"name": "Jack", "email": "jack@example.com"}
+    user := map[string]interface{}{"name": "Jack", "email": "jack@example.com"}
     // foo %s
     i18n.Trans("hello.foo", "bar") // foo bar
     // Name: {name}, Email: {email}
